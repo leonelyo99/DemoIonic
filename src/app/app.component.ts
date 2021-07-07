@@ -4,20 +4,25 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { MenuController } from '@ionic/angular';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+
+import { Componente } from './interfaces/interfaces';
+import { DataService } from './services/data.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: 'app.component.html'
+  templateUrl: 'app.component.html',
+  styleUrls: ['app.component.scss']
 })
 export class AppComponent {
+
+  componentes: Observable<Componente[]>;
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private menu: MenuController,
-    private router: Router
+    private dataService: DataService
   ) {
     this.initializeApp();
   }
@@ -26,13 +31,7 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.componentes = this.dataService.getMenuOpts();
     });
   }
-
-  abrirPagina(pagina: any){
-    this.menu.close();
-    this.router.navigate([`/${pagina}`]);
-  }
-
-  
 }

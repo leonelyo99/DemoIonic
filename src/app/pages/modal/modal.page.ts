@@ -1,40 +1,37 @@
-import { Component, Input} from '@angular/core';
-import { NavParams, ModalController } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+
+import { ModalInfoPage } from '../modal-info/modal-info.page';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.page.html',
   styleUrls: ['./modal.page.scss'],
 })
-export class ModalPage {
+export class ModalPage implements OnInit {
 
-  @Input() nombre: string;
-  @Input() edad: number;
+  constructor( private modalCtrl: ModalController ) { }
 
-  constructor(public navParams: NavParams,
-              public modalCtrl: ModalController) { 
-    console.log(navParams.get('nombre'));
+  ngOnInit() {
   }
 
-  cerrar_parametros(){
-    let data = {
-      nombre: 'Juean Carlos',
-      edod: 18,
-      coords:{
-        lat:10,
-        lng:-10
+  async mostrarModal() {
+
+    const modal = await this.modalCtrl.create({
+      component: ModalInfoPage,
+      componentProps: {
+        nombre: 'Fernando',
+        pais: 'Costa Rica'
       }
-    };
-
-    this.modalCtrl.dismiss({
-      'dismissed': true,
-      data: data
     });
+    
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    console.log('onWillDismiss');
+
+    console.log(data);
+
   }
 
-  cerrar_sin_parametros(){
-    this.modalCtrl.dismiss({
-      'dismissed': true
-    });
-  }
 }

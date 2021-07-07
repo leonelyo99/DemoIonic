@@ -1,21 +1,9 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">Modal</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header titulo="Modal"></app-header>
 
-<ion-button color="tertiary"
-              expand="block"
-              size="large"
-              (click)="cerrar_parametros()">
-    Cerrar Modal
-</ion-button>
+<ion-content class="ion-padding">
 
-<ion-button color="danger"
-              expand="block"
-              size="large"
-              (click)="cerrar_sin_parametros()">
-    Cerrar sin parametros
-</ion-button>
+  <ion-button (click)="mostrarModal()" expand="block">
+    Mostrar modal
+  </ion-button>
 
-<ion-content> </ion-content>
+</ion-content>
